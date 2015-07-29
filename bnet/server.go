@@ -61,6 +61,7 @@ func NewServer() *Server {
 	s.registerService(ChannelInvitationServiceBinder{})
 	s.registerService(FriendsServiceBinder{})
 	s.registerService(GameUtilitiesServiceBinder{})
+	s.registerService(GameMasterServiceBinder{})
 	s.registerService(PresenceServiceBinder{})
 	s.registerService(ResourcesServiceBinder{})
 	// Client exports:
