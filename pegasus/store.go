@@ -15,6 +15,7 @@ func (s *Store) Init(sess *Session) {
 }
 
 func OnGetBattlePayConfig(s *Session, body []byte) ([]byte, error) {
+	log.Printf("\n\n\n\n>D>D>D>OnGetBattlePayConfig")
 	res := hsproto.PegasusUtil_BattlePayConfigResponse{}
 
 	// Hardcode US Dollars until we setup the DB to handle other currencies
@@ -26,12 +27,14 @@ func OnGetBattlePayConfig(s *Session, body []byte) ([]byte, error) {
 
 	bundles := []Bundle{}
 	db.Find(&bundles)
+	log.Printf("\n\n\n\n######%+v", bundles)
 	for _, bundle := range bundles {
 
 		var bundleItems = []*hsproto.PegasusUtil_BundleItem{}
 		products := []Product{}
 		db.Model(&bundle).Association("Items").Find(&products)
-		for _, items := range bundle.Items{
+		log.Printf("\n\n\n\n<<<<<%+v", products)
+		for _, items := range products{
 			productType := hsproto.PegasusUtil_ProductType(items.ProductType)
 			bundleItems = append(bundleItems, &hsproto.PegasusUtil_BundleItem{
 				ProductType:	&productType,
@@ -39,6 +42,7 @@ func OnGetBattlePayConfig(s *Session, body []byte) ([]byte, error) {
 				Quantity:		proto.Int32(items.Quantity),
 			})
 		}
+		log.Printf("\n\n\n\n^^^^^^^%+v", bundleItems)
 
 		res.Bundles = append(res.Bundles, &hsproto.PegasusUtil_Bundle{
 			Id:					proto.String(bundle.ProductID),
@@ -53,9 +57,11 @@ func OnGetBattlePayConfig(s *Session, body []byte) ([]byte, error) {
 			Items: 				bundleItems,
 		})
 
+		log.Printf("\n\n\n\n$$$$$$%+v", res.Bundles[0].Items)
+
 
 	}
-	log.Printf("%+v", res)
+	log.Printf("\n\n\n\n>>>>%+v", res)
 	return EncodeUtilResponse(238, &res)
 }
 
