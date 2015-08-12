@@ -31,9 +31,36 @@ def main():
 	assert account_id
 
 	achieves = []
+	done = set()
+	import myachieve
+	for achieve in myachieve.lst:
+		id = None
+		achieve_id = achieve["Id"]
+		progress = achieve["Progress"]
+		ack_progress = achieve["AckProgress"]
+		completion_count = achieve["CompletionCount"]
+		active = achieve["Active"]
+		date_given = now# if achieve["DateGiven"] else None
+		date_completed = now# if achieve["DateCompleted"] else None
+
+		achieves.append((
+			id,
+			account_id,
+			achieve_id,
+			progress,
+			ack_progress,
+			completion_count,
+			active,
+			date_given,
+			date_completed
+		))
+		done.add(achieve_id)
+
 	for dbf_achieve in cursor.execute("SELECT * FROM dbf_achieve"):
 		id = None
 		achieve_id = dbf_achieve[0]
+		if achieve_id in done:
+			continue
 		progress = 1
 		ack_progress = 1
 		completion_count = 1
