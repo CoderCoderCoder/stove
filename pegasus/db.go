@@ -127,3 +127,38 @@ type License struct {
 	ID        int64
 	ProductID int
 }
+
+type DbfLocalizedStringValue struct {
+	ID     int
+	Locale int32
+	Value  string
+}
+
+type DbfLocalizedString struct {
+	ID     int
+	Key	   string
+	Values []DbfLocalizedStringValue
+}
+
+type DbfBrawlScenario struct {
+	ID                            int32
+	NoteDesc                      string
+	NumPlayers                    int32
+	Player1HeroCardID             int64
+	Player2HeroCardID             int64
+	IsExpert                      bool
+	AdventureId                   int32
+	AdventureModeId               int32
+	WingId                        int32
+	SortOrder                     int32
+	ClientPlayer2HeroCardId       int64
+	TavernBrawlTexture            string
+	TavernBrawlTexturePhone       string
+	TavernBrawlTexturePhoneOffset []float32
+	Strings                       DbfLocalizedString
+	RulesID                       int32
+	RuleType                      int
+	RuleData1                     int64
+	RuleData2                     int64
+	RuleData3                     int64
+}
