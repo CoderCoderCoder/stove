@@ -121,6 +121,12 @@ type DbfCard struct {
 	ClassID       int32
 }
 
+type PreseedDraftChoice struct {
+	Id     int
+	Slot   int
+	CardID int32
+}
+
 type DbfCardBack struct {
 	ID       int32
 	Data1    int

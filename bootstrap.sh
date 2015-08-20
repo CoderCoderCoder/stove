@@ -32,4 +32,7 @@ echo "Initializing database"
 echo "Creating default user"
 "$BASEDIR/scripts/create_default_user.py" "$DBFILE"
 
+echo "Creating preseeded draft"
+"$BASEDIR/scripts/create_preseed_draft.py" "$DBFILE"
+
 echo "Done."

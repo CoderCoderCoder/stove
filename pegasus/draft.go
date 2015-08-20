@@ -29,12 +29,11 @@ func MakeHeroChoices() (choices []DraftChoice) {
 }
 
 func MakeCardChoices(slot int32) (choices []DraftChoice) {
-	cards := []DbfCard{}
-	// just use first 3 classic set cards as a placeholder
-	db.Limit(3).Where("is_collectible = ? and note_mini_guid GLOB ?", 1, "CS[12]_[0-9][0-9][0-9]").Find(&cards)
+	cards := []PreseedDraftChoice{}
+	db.Where("slot = ?", slot).Find(&cards)
 	for i := 1; i <= 3; i++ {
 		choices = append(choices, DraftChoice{
-			CardID:      cards[i-1].ID,
+			CardID:      cards[i-1].CardID,
 			ChoiceIndex: i,
 			Slot:        slot,
 		})

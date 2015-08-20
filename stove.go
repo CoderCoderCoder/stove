@@ -40,6 +40,7 @@ func migrate() {
 		&pegasus.Product{},
 		&pegasus.Draft{},
 		&pegasus.DraftChoice{},
+		&pegasus.PreseedDraftChoice{},
 	).Error
 
 	conn.Close()
